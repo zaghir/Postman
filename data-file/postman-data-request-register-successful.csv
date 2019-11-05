@@ -1,0 +1,3 @@
+endpointRegister      ,email              ,password
+api/register/preprod  ,eve.holt@reqres.in ,pistol
+api/register/preprod  ,test@gmail.com     ,123456

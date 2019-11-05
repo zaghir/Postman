@@ -1,0 +1,93 @@
+{
+	"info": {
+		"_postman_id": "f97d2995-17e1-4ec6-9586-af9d553bab55",
+		"name": "Collection3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "REGISTER - SUCCESSFUL",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e9c3a4fe-da1b-471a-9e0a-3984a90a242b",
+								"exec": [
+									"tests[\"Contains email\"] = responseBody.has(data.email);",
+									"",
+									"tests[\"Contains password\"] = responseBody.has(data[\"password\"]);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"email\":\"{{email}}\",\n\t\"password\":\"{{password}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/{{endpointRegister}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"{{endpointRegister}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "ef8111c9-fe05-4c14-a63f-d0f13a4f13cc",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "245bc4a6-cb72-4bc3-94b5-52fc2653e0d2",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "e83bceba-8782-48a1-95a1-0ef158aeee17",
+			"key": "baseUrl",
+			"value": "https://reqres.in",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
