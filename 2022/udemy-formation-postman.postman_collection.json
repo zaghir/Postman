@@ -1,0 +1,797 @@
+{
+	"info": {
+		"_postman_id": "354d3aab-ac5e-4ea0-83fd-860ec399967e",
+		"name": "udemy-formation-postman",
+		"description": "scopt variables \n\n|-------------------------------------\n|  |-global                          |\n|--|---------------------------------|\n|  |  |collection                 |  |\n|--|--|---------------------------|  |\n|  |  |  |environment          |  |  |\n|--|--|--|-------------------- |  |  |\n|  |  |  |  |data           |  |  |  |          \n|--|--|--|  |---------------|  |  |  |\n|  |  |  |  |  |local    |  |  |  |  |          \n|  |  |  |  |  |         |  |  |  |  |          \n|  |  |  |  |  |         |  |  |  |  |          \n|  |  |  |  |  |         |  |  |  |  |          \n|  |  |  |  |  |         |  |  |  |  |  \n|  |  |  |  |  |---------|  |  |  |  |    \n|--|--|--|--|---------------|  |  |  |\n|--|--|--|-------------------- |  |  |\n|--|--|---------------------------|  |\n|--|---------------------------------|",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "httpbin.org",
+			"item": [
+				{
+					"name": "GET with URL Params",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"let jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Your test name\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"    pm.expect(jsonData.args.isGood).to.eql('true');\r",
+									"    pm.expect(jsonData.args.isBad).to.eql('false');\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/get?isGood=true&isBad=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"get"
+							],
+							"query": [
+								{
+									"key": "isGood",
+									"value": "true"
+								},
+								{
+									"key": "isBad",
+									"value": "false"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DELETE request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/delete",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST with JSON body",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let date = Date.now();\r",
+									"pm.globals.set(\"currentDate\", date);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"john\",\r\n    \"permissions\": [2000,3000,4000]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/post",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT with form data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test form data\", function () {\r",
+									"    let data = pm.response.json();\r",
+									"    pm.expect(data.form.username).to.eql(\"johndoe\");\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"let date = Date.now();\r",
+									"pm.globals.set(\"currentDate\", date);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "key",
+									"value": "username",
+									"type": "text"
+								},
+								{
+									"key": "value",
+									"value": "johndoe",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "type",
+									"value": "text",
+									"type": "text"
+								}
+							],
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/put",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"put"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data set (pres-request script) http://httpbin.org",
+			"item": [
+				{
+					"name": "Create company",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var iterationData = pm.environment.get(\"iterationData\");",
+									"",
+									"if (iterationData && iterationData.length > 0) {",
+									"    //  postman.setNextRequest(\"name of requesty\");",
+									"    postman.setNextRequest(\"Create company\");",
+									"} else {",
+									"    postman.setNextRequest(null);",
+									"}",
+									"",
+									"",
+									"",
+									"pm.test(\"Content-Type is present\", function () {",
+									"    pm.response.to.have.header(\"Content-Type\");",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var companies = pm.environment.get(\"companies\");",
+									"var iterationData = pm.environment.get(\"iterationData\");",
+									"",
+									"if (!companies) {",
+									"    companies = [\"Gooooooogle\", \"Yahoo!\", \"Facebook\", \"Amazon\"];",
+									"    pm.environment.set(\"companies\", companies);",
+									"}",
+									"",
+									"if (!iterationData) {",
+									"    iterationData = JSON.parse(JSON.stringify(companies)); // clone array",
+									"}",
+									"",
+									"var currentCompany = iterationData.shift();",
+									"pm.environment.set(\"company\", currentCompany);",
+									"pm.environment.set(\"iterationData\", iterationData);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"{{company}}\"\n}"
+						},
+						"url": {
+							"raw": "https://httpbin.org/post",
+							"protocol": "https",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Data set (from file) Order Management http://httpbin.org",
+			"item": [
+				{
+					"name": "Generate reference",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"",
+									"pm.test(\"Should contain reference id\", function () {",
+									"    pm.expect(response.uuid).to.exist;",
+									"});",
+									"",
+									"pm.globals.set(\"referenceId\", response.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "httpbin.org/uuid",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"uuid"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const response = pm.response.json();",
+									"",
+									"if(pm.iterationData.get(\"isValid\") == \"true\"){",
+									"    pm.test(\"Should contain the reference id\", function () {",
+									"        pm.expect(response.json.referenceId).to.eql(pm.globals.get(\"referenceId\"));",
+									"    });",
+									"",
+									"    pm.test(\"Should contain the customer id\", function () {",
+									"        pm.expect(response.json.customerId).to.eql(parseInt(pm.iterationData.get(\"customerId\")));",
+									"    });",
+									"",
+									"    pm.test(\"Should contain the product id\", function () {",
+									"        pm.expect(response.json.productId).to.eql(parseInt(pm.iterationData.get(\"productId\")));",
+									"    });",
+									"} else{",
+									"    pm.test(\"Should not be valid\", function () {",
+									"        pm.expect(response.json).to.be.null;",
+									"    });",
+									"}",
+									"",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"/*create file data.json and put all objets follow :\r",
+									"*/\r",
+									"\r",
+									"// set a complexe object \r",
+									"pm.variables.set(\"metaInfo\" , JSON.stringify(pm.iterationData.get(\"metaInfo\")));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"referenceId\": \"{{referenceId}}\",\n\t\"customerId\": {{customerId}},\n\t\"productId\": {{productId}},\n    \"metaInfo\": {{metaInfo}}\n}"
+						},
+						"url": {
+							"raw": "httpbin.org/post",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"post"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is \"+pm.iterationData.get(\"expectedStatus\"), function () {",
+									"    pm.response.to.have.status(pm.iterationData.get(\"expectedStatus\"));",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "httpbin.org/status/{{status}}",
+							"host": [
+								"httpbin",
+								"org"
+							],
+							"path": [
+								"status",
+								"{{status}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Run tests collection with data.json\n`\n[\n    {\n        \"customerId\": 9000,\n        \"productId\": 5,\n        \"status\": 200,\n        \"isValid\": \"true\",\n        \"expectedStatus\": 200,\n        \"metaInfo\": {\n            \"categoryId\": 9347,\n            \"segmentId\": 7833,\n            \"keywords\": \"foo, bar, foobar\"\n        }\n    },\n    {\n        \"customerId\": 9001,\n        \"productId\": 4,\n        \"status\": 500,\n        \"isValid\": \"true\",\n        \"expectedStatus\": 500,\n        \"metaInfo\": null\n    },\n    {\n        \"customerId\": 9002,\n        \"productId\": \"3FOO\",\n        \"isValid\": \"false\",\n        \"status\": 404,\n        \"expectedStatus\": 404,\n        \"metaInfo\": {\n            \"categoryId\": 1111,\n            \"segmentId\": 2222,\n            \"keywords\": \"foo, bar, foobar\"\n        }\n    }\n]\n`",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "collection first",
+			"item": [
+				{
+					"name": "Api Status",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get ALL Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products?category=candy&results=2",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "candy"
+								},
+								{
+									"key": "results",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get single product",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products/:productId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"products",
+								":productId"
+							],
+							"variable": [
+								{
+									"key": "productId",
+									"value": "8554"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create new Cart",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carts",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cart",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId"
+							],
+							"variable": [
+								{
+									"key": "cartId",
+									"value": "PmgdCKBqz4TuxDNs4ZD5T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get cart items",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items"
+							],
+							"variable": [
+								{
+									"key": "cartId",
+									"value": "PmgdCKBqz4TuxDNs4ZD5T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "register api client",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n   \"clientName\": \"Postman on Valentin's computer\",\r\n   \"clientEmail\": \"valentin_test22@example.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api-clients",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api-clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add items to cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productId\": 8554\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/carts/:cartId/items",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"carts",
+								":cartId",
+								"items"
+							],
+							"variable": [
+								{
+									"key": "cartId",
+									"value": "PmgdCKBqz4TuxDNs4ZD5T"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add an order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{accessToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cartId\": \"PmgdCKBqz4TuxDNs4ZD5T\",\r\n    \"customerName\":\"{{$randomFullName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/orders",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "test example.com",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "example.com",
+							"host": [
+								"example",
+								"com"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://simple-grocery-store-api.glitch.me"
+		},
+		{
+			"key": "accessToken",
+			"value": "Your access token"
+		},
+		{
+			"key": "customerId",
+			"value": "100"
+		},
+		{
+			"key": "productId",
+			"value": "200"
+		},
+		{
+			"key": "isValid",
+			"value": "true"
+		},
+		{
+			"key": "metaInfo",
+			"value": "{}"
+		}
+	]
+}
